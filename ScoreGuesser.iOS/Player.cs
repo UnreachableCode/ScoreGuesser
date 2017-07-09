@@ -8,7 +8,7 @@ namespace ScoreGuesser.iOS
 {
     public class Player
     {
-        public Player(string first_Name, string last_Name, string imageUrl, string fppg)
+        public Player(string first_Name, string last_Name, string imageUrl, float fppg)
         {
             First_Name = first_Name;
             Last_Name = last_Name;
@@ -19,17 +19,31 @@ namespace ScoreGuesser.iOS
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
         public string ImageUrl { get; set; }
-        public string FPPG { get; set; }
+        public float FPPG { get; set; }
 
         public async Task<UIImage> LoadImage()
         {
-            var httpClient = new HttpClient();
+            try
+            {
+                var httpClient = new HttpClient();
 
-            Task<byte[]> contentsTask = httpClient.GetByteArrayAsync(ImageUrl);
+                Task<byte[]> contentsTask = httpClient.GetByteArrayAsync(ImageUrl);
 
-            var contents = await contentsTask;
+                if (contentsTask.Status != TaskStatus.Faulted)
+                {
+                    var contents = await contentsTask;
 
-            return UIImage.LoadFromData(NSData.FromArray(contents));
+                    return UIImage.LoadFromData(NSData.FromArray(contents));
+                }
+                else
+                {
+                    return UIImage.FromBundle("NoPlayerImage");
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace ScoreGuesser.iOS
                     string first_Name = player.first_name;
                     string last_Name = player.last_name;
                     string imageUrl = player.images.@default.url;
-                    string fppg = player.fppg;
+                    float fppg = player.fppg != null ? player.fppg.ToObject<float>() : 0;
 
                     list.Add(new Player(first_Name, last_Name, imageUrl, fppg));
                 }

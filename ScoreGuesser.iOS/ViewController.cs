@@ -5,10 +5,18 @@ using Foundation;
 
 namespace ScoreGuesser.iOS
 {
-    public partial class ViewController : UIViewController, IUICollectionViewDataSource
+    public interface ICollectionScrollDelegate
+    {
+        void ScrollToNext();
+    }
+
+    public partial class ViewController : UIViewController, IUICollectionViewDataSource, ICollectionScrollDelegate
     {
         PlayerDataDownloader _playerDataDownloader;
         List<Player> _playerList;
+
+        int _currentPosition;
+        int _correctGuesses;
 
         protected ViewController(IntPtr handle) : base(handle) { }
 
@@ -28,7 +36,7 @@ namespace ScoreGuesser.iOS
 
         public nint GetItemsCount(UICollectionView collectionView, nint section)
         {
-            return 5;
+            return 30; //show 20 random ones at a time.
         }
 
         public UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
@@ -37,10 +45,14 @@ namespace ScoreGuesser.iOS
             var rand = new Random();
             var nextCell = rand.Next(0, _playerList.Count);
             var nextCell2 = rand.Next(0, _playerList.Count);
-            cell.PopulateCell(_playerList[nextCell], _playerList[nextCell2]);
+            cell.PopulateCell(this, _playerList[nextCell], _playerList[nextCell2]);
             return cell;
+        }
+
+        void ICollectionScrollDelegate.ScrollToNext()
+        {
+            var index = NSIndexPath.FromRowSection(++_currentPosition, 0);
+            PlayerCollectionView.ScrollToItem(index, UICollectionViewScrollPosition.Top, true);
         }
     }
 }
-
-

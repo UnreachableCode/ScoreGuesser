@@ -24,6 +24,10 @@ namespace ScoreGuesser.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel ResultLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView SecondPlayerImageView { get; set; }
 
         [Outlet]
@@ -40,6 +44,11 @@ namespace ScoreGuesser.iOS
             if (FirstPlayerNameLabel != null) {
                 FirstPlayerNameLabel.Dispose ();
                 FirstPlayerNameLabel = null;
+            }
+
+            if (ResultLabel != null) {
+                ResultLabel.Dispose ();
+                ResultLabel = null;
             }
 
             if (SecondPlayerImageView != null) {
