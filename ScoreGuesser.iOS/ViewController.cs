@@ -5,12 +5,8 @@ using Foundation;
 
 namespace ScoreGuesser.iOS
 {
-    public interface ICollectionScrollDelegate
-    {
-        void ScrollToNext();
-    }
 
-    public partial class ViewController : UIViewController, IUICollectionViewDataSource, ICollectionScrollDelegate
+    public partial class ViewController : UIViewController, IUICollectionViewDataSource, ICollectionDelegate
     {
         PlayerDataDownloader _playerDataDownloader;
         List<Player> _playerList;
@@ -36,7 +32,7 @@ namespace ScoreGuesser.iOS
 
         public nint GetItemsCount(UICollectionView collectionView, nint section)
         {
-            return 30; //show 20 random ones at a time.
+            return 30;
         }
 
         public UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
@@ -49,10 +45,21 @@ namespace ScoreGuesser.iOS
             return cell;
         }
 
-        void ICollectionScrollDelegate.ScrollToNext()
+        void ICollectionDelegate.ScrollToNext()
         {
             var index = NSIndexPath.FromRowSection(++_currentPosition, 0);
             PlayerCollectionView.ScrollToItem(index, UICollectionViewScrollPosition.Top, true);
+        }
+
+        void ICollectionDelegate.AddOnePoint()
+        {
+            _correctGuesses++;
+            CorrectGuessesLabel.Text = "Correct Guesses: " + _correctGuesses;
+            if (_correctGuesses >= 10)
+            {
+                var viewController = Storyboard.InstantiateViewController("CongratulationsViewController");
+                PresentViewController(viewController, true, null);
+            }
         }
     }
 }

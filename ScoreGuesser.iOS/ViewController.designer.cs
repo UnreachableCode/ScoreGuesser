@@ -13,6 +13,9 @@ namespace ScoreGuesser.iOS
 	partial class ViewController
 	{
 		[Outlet]
+		UIKit.UILabel CorrectGuessesLabel { get; set; }
+
+		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
 		UIKit.UICollectionView PlayerCollectionView { get; set; }
 		
@@ -21,6 +24,11 @@ namespace ScoreGuesser.iOS
 			if (PlayerCollectionView != null) {
 				PlayerCollectionView.Dispose ();
 				PlayerCollectionView = null;
+			}
+
+			if (CorrectGuessesLabel != null) {
+				CorrectGuessesLabel.Dispose ();
+				CorrectGuessesLabel = null;
 			}
 		}
 	}

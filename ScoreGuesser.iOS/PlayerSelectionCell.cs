@@ -14,7 +14,7 @@ namespace ScoreGuesser.iOS
         UIGestureRecognizer _firstImageTapped;
         UIGestureRecognizer _secondImageTapped;
 
-        ICollectionScrollDelegate _scroller;
+        ICollectionDelegate _collectionDelegate;
 
         public PlayerSelectionCell(IntPtr handle) : base(handle) { }
 
@@ -34,9 +34,9 @@ namespace ScoreGuesser.iOS
             InitialiseCell();
         }
 
-        internal void PopulateCell(ICollectionScrollDelegate scroller, Player player1, Player player2)
+        internal void PopulateCell(ICollectionDelegate collectionDelegate, Player player1, Player player2)
         {
-            _scroller = scroller;
+            _collectionDelegate = collectionDelegate;
             _playerOne = player1;
             _playerTwo = player2;
             SetImages(player1, player2);
@@ -79,6 +79,7 @@ namespace ScoreGuesser.iOS
                 {
                     //correct
                     ResultLabel.Text = "Correct answer!";
+                    _collectionDelegate.AddOnePoint();
                 }
                 else
                 {
@@ -89,7 +90,7 @@ namespace ScoreGuesser.iOS
             async () =>
             {
                 await Task.Delay(2000);
-                _scroller.ScrollToNext();
+                _collectionDelegate.ScrollToNext();
             });
         }
 
