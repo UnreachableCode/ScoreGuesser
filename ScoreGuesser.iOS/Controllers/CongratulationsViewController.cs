@@ -2,7 +2,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ScoreGuesser
+namespace ScoreGuesser.iOS.Controllers
 {
     public partial class CongratulationsViewController : UIViewController
     {

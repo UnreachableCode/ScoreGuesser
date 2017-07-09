@@ -97,16 +97,16 @@
 		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
 		<ImageAsset Include="Assets.xcassets\Contents.json" />
 		<ImageAsset Include="Assets.xcassets\NoPlayerImage.imageset\Contents.json" />
-		<ImageAsset Include="Assets.xcassets\NoPlayerImage.imageset\hide-facebook-profile-picture-notification.jpg" />
+		<ImageAsset Include="Assets.xcassets\NoPlayerImage.imageset\NoImage.jpg" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Resources\" />
 		<Folder Include="Assets.xcassets\NoPlayerImage.imageset\" />
-		<Folder Include="View\" />
+		<Folder Include="Controllers\" />
 	</ItemGroup>
 	<ItemGroup>
-		<InterfaceDefinition Include="View\Main.storyboard" />
-		<InterfaceDefinition Include="View\LaunchScreen.storyboard" />
+		<InterfaceDefinition Include="LaunchScreen.storyboard" />
+		<InterfaceDefinition Include="Main.storyboard" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="Info.plist" />
@@ -116,21 +116,25 @@
 	<ItemGroup>
 		<Compile Include="Main.cs" />
 		<Compile Include="AppDelegate.cs" />
-		<Compile Include="ViewController.cs" />
-		<Compile Include="ViewController.designer.cs">
-			<DependentUpon>ViewController.cs</DependentUpon>
-		</Compile>
-		<Compile Include="PlayerDataDownloader.cs" />
-		<Compile Include="Player.cs" />
-		<Compile Include="PlayerSelectionCell.cs" />
-		<Compile Include="PlayerSelectionCell.designer.cs">
-			<DependentUpon>PlayerSelectionCell.cs</DependentUpon>
-		</Compile>
 		<Compile Include="ICollectionDelegate.cs" />
-		<Compile Include="CongratulationsViewController.cs" />
-		<Compile Include="CongratulationsViewController.designer.cs">
+		<Compile Include="Controllers\CongratulationsViewController.cs" />
+		<Compile Include="Controllers\CongratulationsViewController.designer.cs">
 		  <DependentUpon>CongratulationsViewController.cs</DependentUpon>
 		</Compile>
+		<Compile Include="Controllers\ViewController.cs" />
+		<Compile Include="Controllers\ViewController.designer.cs">
+		  <DependentUpon>ViewController.cs</DependentUpon>
+		</Compile>
+		<Compile Include="PlayerSelectionCell.cs" />
+		<Compile Include="PlayerSelectionCell.designer.cs">
+		  <DependentUpon>PlayerSelectionCell.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ScoreGuesser.Common\ScoreGuesser.Common.csproj">
+	    <Project>{E91F2A0C-766A-447C-907D-205CC988CE24}</Project>
+	    <Name>ScoreGuesser.Common</Name>
+	  </ProjectReference>
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

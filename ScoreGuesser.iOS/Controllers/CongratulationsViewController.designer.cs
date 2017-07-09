@@ -9,19 +9,20 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace ScoreGuesser
+namespace ScoreGuesser.iOS.Controllers
 {
-    [Register ("CongratulationsViewController")]
+    [Register("CongratulationsViewController")]
     partial class CongratulationsViewController
     {
         [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
+        [GeneratedCode("iOS Designer", "1.0")]
         UIKit.UIButton PlayAgainButton { get; set; }
 
-        void ReleaseDesignerOutlets ()
+        void ReleaseDesignerOutlets()
         {
-            if (PlayAgainButton != null) {
-                PlayAgainButton.Dispose ();
+            if (PlayAgainButton != null)
+            {
+                PlayAgainButton.Dispose();
                 PlayAgainButton = null;
             }
         }

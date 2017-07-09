@@ -1,8 +1,9 @@
-using Foundation;
 using System;
-using System.Linq;
 using UIKit;
 using System.Threading.Tasks;
+using ScoreGuesser.Common.Models;
+using ScoreGuesser.Common.Services;
+using Foundation;
 
 namespace ScoreGuesser.iOS
 {
@@ -14,6 +15,7 @@ namespace ScoreGuesser.iOS
         UIGestureRecognizer _firstImageTapped;
         UIGestureRecognizer _secondImageTapped;
 
+        IPlayerDataService _playerDataService; //todo Dependency Inject.
         ICollectionDelegate _collectionDelegate;
 
         public PlayerSelectionCell(IntPtr handle) : base(handle) { }
@@ -24,6 +26,7 @@ namespace ScoreGuesser.iOS
             FirstPlayerImageView.UserInteractionEnabled = true;
             SecondPlayerImageView.UserInteractionEnabled = true;
             InitialiseCell();
+            _playerDataService = new PlayerDataService();
         }
 
         public override void PrepareForReuse()
@@ -40,8 +43,8 @@ namespace ScoreGuesser.iOS
             _playerOne = player1;
             _playerTwo = player2;
             SetImages(player1, player2);
-            FirstPlayerNameLabel.Text = player1.First_Name + " " + player1.Last_Name;
-            SecondPlayerNameLabel.Text = player2.First_Name + " " + player2.Last_Name;
+            FirstPlayerNameLabel.Text = player1.FirstName + " " + player1.LastName;
+            SecondPlayerNameLabel.Text = player2.FirstName + " " + player2.LastName;
             SetUpTapGestures();
         }
 
@@ -75,7 +78,7 @@ namespace ScoreGuesser.iOS
             Animate(0.25, () =>
             {
                 ResultLabel.Alpha = 1;
-                if (tappedPlayer.FPPG > otherPlayer.FPPG)
+                if (tappedPlayer.FanduelPointsPerGame > otherPlayer.FanduelPointsPerGame)
                 {
                     //correct
                     ResultLabel.Text = "Correct answer!";
@@ -96,27 +99,39 @@ namespace ScoreGuesser.iOS
 
         void SetImages(Player player, Player player2)
         {
-            DownloadImageAsync(player, (succeeded, image) =>
+            DownloadImageAsync(player, (succeeded, imageBytes) =>
             {
-                if (succeeded)
-                {
-                    FirstPlayerImageView.Image = image;
-                }
+                SetImage(FirstPlayerImageView, succeeded, imageBytes);
             });
 
-            DownloadImageAsync(player2, (succeeded, image) =>
+            DownloadImageAsync(player2, (succeeded, imageBytes) =>
             {
-                if (succeeded)
-                {
-                    SecondPlayerImageView.Image = image;
-                }
+                SetImage(SecondPlayerImageView, succeeded, imageBytes);
             });
         }
 
-        async void DownloadImageAsync(Player player, Action<bool, UIImage> completionHandler)
+        void SetImage(UIImageView imageView, bool succeeded, byte[] imageBytes)
         {
-            var downloadedImage = await player.LoadImage();
-            completionHandler(true, downloadedImage);
+            UIImage image = null;
+            if (succeeded)
+            {
+                image = UIImage.LoadFromData(NSData.FromArray(imageBytes));
+            }
+            else
+            {
+                image = UIImage.FromBundle("NoPlayerImage");
+            }
+            imageView.Image = image;
+        }
+
+        async void DownloadImageAsync(Player player, Action<bool, byte[]> completionHandler)
+        {
+            var downloadedImage = await _playerDataService.GetProfilePicture(player);
+
+            if (downloadedImage != null)
+            {
+                completionHandler(true, downloadedImage);
+            }
         }
     }
 }

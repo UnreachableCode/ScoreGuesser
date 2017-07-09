@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreGuesser.UITests", "Sco
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreGuesser.iOS", "ScoreGuesser.iOS\ScoreGuesser.iOS.csproj", "{3FE83C6E-1BC3-4192-81B5-7D10342FBFCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreGuesser.Common", "ScoreGuesser.Common\ScoreGuesser.Common.csproj", "{E91F2A0C-766A-447C-907D-205CC988CE24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -39,5 +41,17 @@ Global
 		{3FE83C6E-1BC3-4192-81B5-7D10342FBFCC}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{3FE83C6E-1BC3-4192-81B5-7D10342FBFCC}.Release|Any CPU.ActiveCfg = Release|iPhone
 		{3FE83C6E-1BC3-4192-81B5-7D10342FBFCC}.Release|Any CPU.Build.0 = Release|iPhone
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Release|iPhone.Build.0 = Release|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E91F2A0C-766A-447C-907D-205CC988CE24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
