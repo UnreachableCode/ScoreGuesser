@@ -63,7 +63,7 @@ namespace ScoreGuesser.Common.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception caught: " + e);
+                //Console.WriteLine("Exception caught: " + e);
                 return null;
             }
         }
