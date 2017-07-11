@@ -11,6 +11,9 @@ namespace ScoreGuesser.iOS
 
     public partial class ViewController : UIViewController, IUICollectionViewDataSource, ICollectionDelegate
     {
+        //Todo: this should really be in a settings file at some point.
+        const string PLAYER_DATA_URL = @"https://cdn.rawgit.com/liamjdouglas/bb40ee8721f1a9313c22c6ea0851a105/raw/6b6fc89d55ebe4d9b05c1469349af33651d7e7f1/Player.json";
+
         IPlayerDataService _playerDataDownloader; //todo: Dependency Inject this eventually.
         List<Player> _playerList;
 
@@ -23,11 +26,9 @@ namespace ScoreGuesser.iOS
         {
             base.ViewDidLoad();
 
-            string url = @"https://cdn.rawgit.com/liamjdouglas/bb40ee8721f1a9313c22c6ea0851a105/raw/6b6fc89d55ebe4d9b05c1469349af33651d7e7f1/Player.json";
-
             _playerDataDownloader = new PlayerDataService();
 
-            var result = await _playerDataDownloader.FetchPlayersDataAsync(url);
+            var result = await _playerDataDownloader.FetchPlayersDataAsync(PLAYER_DATA_URL);
             _playerList = result.ToList();
 
             PlayerCollectionView.DataSource = this;

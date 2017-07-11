@@ -10,8 +10,6 @@ namespace ScoreGuesser.Common.Services
 {
     public class PlayerDataService : IPlayerDataService
     {
-        string _url;
-
         public async Task<IEnumerable<Player>> FetchPlayersDataAsync(string url)
         {
             var list = new List<Player>();
@@ -20,7 +18,6 @@ namespace ScoreGuesser.Common.Services
                 using (var client = new HttpClient())
                 {
                     var json = await client.GetStringAsync(url);
-
                     dynamic dyn = JsonConvert.DeserializeObject(json);
 
                     foreach (var player in dyn.players)
@@ -35,9 +32,14 @@ namespace ScoreGuesser.Common.Services
                 }
                 return list;
             }
-            catch (Exception e)
+
+            catch (ArgumentNullException e)
             {
-                return null;
+                throw new ArgumentNullException();
+            }
+            catch (HttpRequestException e)
+            {
+                throw new HttpRequestException();
             }
         }
 
